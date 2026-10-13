@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useData } from '../contexts/DataContext.jsx'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts'
+import { TrendingUp, TrendingDown, Wallet } from 'lucide-react'
 
 const monthNames = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
 const fullMonthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
@@ -25,9 +26,9 @@ export default function FluxoCaixa() {
   })
 
   const cards = [
-    { label: 'Entradas (Ano)', value: formatBRL(totalEntradas), color: 'text-green-600', bg: 'bg-green-50' },
-    { label: 'Saídas (Ano)', value: formatBRL(totalSaidas), color: 'text-red-600', bg: 'bg-red-50' },
-    { label: 'Saldo Anual', value: formatBRL(saldo), color: saldo >= 0 ? 'text-green-600' : 'text-red-600', bg: 'bg-blue-50' },
+    { label: 'Entradas (Ano)', value: formatBRL(totalEntradas), icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-50' },
+    { label: 'Saídas (Ano)', value: formatBRL(totalSaidas), icon: TrendingDown, color: 'text-red-600', bg: 'bg-red-50' },
+    { label: 'Saldo Anual', value: formatBRL(saldo), icon: Wallet, color: saldo >= 0 ? 'text-green-600' : 'text-red-600', bg: 'bg-blue-50' },
   ]
 
   return (
@@ -39,27 +40,27 @@ export default function FluxoCaixa() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {cards.map(c => (
-          <div key={c.label} className="bg-white border border-gray-200 rounded-xl p-5">
+          <div key={c.label} className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-sm text-gray-500">{c.label}</p>
                 <p className={`text-xl font-bold mt-2 ${c.color}`}>{c.value}</p>
               </div>
               <div className={`w-10 h-10 rounded-lg ${c.bg} flex items-center justify-center`}>
-                <div className={`w-4 h-4 rounded ${c.color.replace('text-', 'bg-')}`} />
+                <c.icon className={`w-5 h-5 ${c.color}`} />
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl p-5">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
         <h2 className="font-semibold text-gray-700 mb-4">Fluxo Mensal - {year}</h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis dataKey="mes" tick={{ fontSize: 12, fill: '#718096' }} />
-            <YAxis tick={{ fontSize: 12, fill: '#718096' }} tickFormatter={(v) => `R$${v}`} />
+            <YAxis tick={{ fontSize: 12, fill: '#718096' }} tickFormatter={(v) => `R$ ${v.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`} />
             <Tooltip formatter={(v) => formatBRL(v)} />
             <Legend />
             <Line type="monotone" dataKey="entradas" stroke="#2a9d69" name="Entradas" strokeWidth={2} />
@@ -69,7 +70,7 @@ export default function FluxoCaixa() {
         </ResponsiveContainer>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
         <div className="p-5 border-b border-gray-100">
           <h2 className="font-semibold text-gray-700">Resumo Mensal - {year}</h2>
         </div>

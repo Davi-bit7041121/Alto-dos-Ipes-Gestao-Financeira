@@ -1,6 +1,6 @@
 import { useData } from '../contexts/DataContext.jsx'
 import { ArrowDownCircle, ArrowUpCircle, Wallet, TrendingUp, MapPin, CreditCard, AlertTriangle } from 'lucide-react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const monthNames = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
 
@@ -38,7 +38,7 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => (
-          <div key={c.label} className="bg-white border border-gray-200 rounded-xl p-5">
+          <div key={c.label} className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-sm text-gray-500">{c.label}</p>
@@ -53,21 +53,31 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="bg-white border border-gray-200 rounded-xl p-5 lg:col-span-2">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5 lg:col-span-2">
           <h2 className="font-semibold text-gray-700 mb-4">Fluxo Mensal - 2026</h2>
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={chartData}>
+            <AreaChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="mes" tick={{ fontSize: 12, fill: '#718096' }} />
               <YAxis tick={{ fontSize: 12, fill: '#718096' }} tickFormatter={(v) => `R$${v}`} />
               <Tooltip formatter={(v) => formatBRL(v)} />
-              <Bar dataKey="entradas" fill="#2a9d69" name="Entradas" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="saidas" fill="#e53e3e" name="Saídas" radius={[4, 4, 0, 0]} />
-            </BarChart>
+              <defs>
+                <linearGradient id="gradEntradas" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2a9d69" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="#2a9d69" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradSaidas" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#e53e3e" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="#e53e3e" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <Area type="monotone" dataKey="entradas" stroke="#2a9d69" fill="url(#gradEntradas)" name="Entradas" strokeWidth={2} />
+              <Area type="monotone" dataKey="saidas" stroke="#e53e3e" fill="url(#gradSaidas)" name="Saídas" strokeWidth={2} />
+            </AreaChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-4">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5 space-y-4">
           <h2 className="font-semibold text-gray-700">Resumo Lotes</h2>
           <div className="flex items-center justify-between py-2 border-b border-gray-100">
             <div className="flex items-center gap-2">

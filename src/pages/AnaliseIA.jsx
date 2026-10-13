@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useData } from '../contexts/DataContext.jsx'
-import { Sparkles, TrendingUp, TrendingDown, DollarSign, CreditCard, AlertTriangle, MapPin, BarChart3, Send } from 'lucide-react'
+import { Sparkles, TrendingUp, TrendingDown, DollarSign, CreditCard, AlertTriangle, MapPin, BarChart3, Send, Wallet } from 'lucide-react'
 
 const formatBRL = (v) => (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
@@ -25,12 +25,12 @@ export default function AnaliseIA() {
   const metrics = [
     { label: 'Receita Total', value: formatBRL(totalReceitas), icon: TrendingUp, color: 'text-green-600' },
     { label: 'Despesa Total', value: formatBRL(totalDespesas), icon: TrendingDown, color: 'text-red-600' },
-    { label: 'Lucro Líquido', value: formatBRL(lucro), icon: DollarSign, color: lucro >= 0 ? 'text-green-600' : 'text-red-600' },
-    { label: 'A Receber', value: formatBRL(aReceber), icon: CreditCard, color: 'text-blue-600' },
+    { label: 'Lucro Líquido', value: formatBRL(lucro), icon: BarChart3, color: lucro >= 0 ? 'text-green-600' : 'text-red-600' },
+    { label: 'A Receber', value: formatBRL(aReceber), icon: Wallet, color: 'text-blue-600' },
     { label: 'Parcelas Vencidas', value: `${vencidas.length} (${formatBRL(valorVencidas)})`, icon: AlertTriangle, color: 'text-red-500' },
     { label: 'Inadimplência', value: `${inadimplencia.toFixed(1)}%`, icon: AlertTriangle, color: 'text-orange-500' },
     { label: 'Lotes Vendidos', value: `${lotesVendidos}/${lotes.length}`, icon: MapPin, color: 'text-blue-600' },
-    { label: 'Ticket Médio', value: formatBRL(ticketMedio), icon: BarChart3, color: 'text-purple-600' },
+    { label: 'Ticket Médio', value: formatBRL(ticketMedio), icon: MapPin, color: 'text-purple-600' },
   ]
 
   const gerarAnalise = () => {
@@ -93,7 +93,7 @@ Com base nos dados atuais, a projeção para o próximo período indica ${lucro 
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {metrics.map(m => (
-          <div key={m.label} className="bg-white border border-gray-200 rounded-xl p-4">
+          <div key={m.label} className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
             <div className="flex items-start justify-between mb-2">
               <p className="text-xs text-gray-500">{m.label}</p>
               <m.icon className={`w-4 h-4 ${m.color}`} />
@@ -104,7 +104,7 @@ Com base nos dados atuais, a projeção para o próximo período indica ${lucro 
       </div>
 
       {tab === 'completa' ? (
-        <div className="bg-white border border-gray-200 rounded-xl p-8">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
           {analise ? (
             <div className="prose prose-sm max-w-none">
               {analise.split('\n').map((line, i) => (
@@ -128,7 +128,7 @@ Com base nos dados atuais, a projeção para o próximo período indica ${lucro 
           )}
         </div>
       ) : (
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
           <div className="flex gap-3 mb-4">
             <input type="text" value={pergunta} onChange={e => setPergunta(e.target.value)} placeholder="Faça uma pergunta sobre os dados do loteamento..." className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand" onKeyDown={e => e.key === 'Enter' && perguntar()} />
             <button onClick={perguntar} disabled={loading} className="bg-brand text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-dark flex items-center gap-1.5 disabled:opacity-50">

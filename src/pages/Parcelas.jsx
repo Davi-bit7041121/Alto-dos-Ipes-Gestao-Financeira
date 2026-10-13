@@ -57,11 +57,11 @@ export default function Parcelas() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-white border border-gray-200 rounded-xl py-16 text-center text-gray-400">Nenhum financiamento encontrado</div>
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm py-16 text-center text-gray-400">Nenhum financiamento encontrado</div>
       ) : (
         <div className="space-y-3">
           {filtered.map(p => (
-            <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5">
+            <div key={p.id} className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h3 className="font-semibold text-gray-800">{p.clienteNome || 'Sem cliente'}</h3>

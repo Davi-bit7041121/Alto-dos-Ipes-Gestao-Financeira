@@ -85,21 +85,21 @@ export default function Relatorios() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white border border-gray-200 rounded-xl p-5">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-gray-500">Total Receitas</p>
             <TrendingUp className="w-5 h-5 text-green-500" />
           </div>
           <p className="text-2xl font-bold text-green-600">{formatBRL(totalReceitas)}</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-5">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-gray-500">Total Despesas</p>
             <TrendingDown className="w-5 h-5 text-red-500" />
           </div>
           <p className="text-2xl font-bold text-red-600">{formatBRL(totalDespesas)}</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-5">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-gray-500">Lucro Líquido</p>
             <DollarSign className="w-5 h-5 text-blue-500" />
@@ -108,7 +108,7 @@ export default function Relatorios() {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl p-5">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
         <h2 className="font-semibold text-gray-700 mb-4">Detalhamento por Categoria</h2>
         {tipo !== 'Despesas' && filterReceitas.length > 0 && (
           <div className="mb-4">

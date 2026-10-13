@@ -37,11 +37,11 @@ export default function Clientes() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-white border border-gray-200 rounded-xl py-16 text-center text-gray-400">Nenhum cliente encontrado</div>
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm py-16 text-center text-gray-400">Nenhum cliente encontrado</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map(c => (
-            <div key={c.id} className="bg-white border border-gray-200 rounded-xl p-5">
+            <div key={c.id} className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand font-semibold">

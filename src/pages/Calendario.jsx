@@ -68,7 +68,7 @@ export default function Calendario() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-5">
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-gray-700 capitalize">{monthNames[month]} de {year}</h2>
             <div className="flex items-center gap-2">
@@ -102,7 +102,7 @@ export default function Calendario() {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-xl p-5">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <h2 className="font-semibold text-gray-700 mb-4 capitalize">Eventos - {monthNames[month]}</h2>
           {monthEvents.length === 0 ? (
             <p className="text-center text-gray-400 py-8">Nenhum evento neste mês</p>
